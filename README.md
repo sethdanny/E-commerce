@@ -1,2 +1,2 @@
-# E-commerce
-Nodejs Backend e-commerce project
+# E-commerce API
+Nodejs Backend e-commerce project.
