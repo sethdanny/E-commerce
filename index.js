@@ -5,8 +5,6 @@ import dotenv from 'dotenv';
 import morgan from 'morgan';
 import dbConnect from './config/database.js';
 
-
-
 const app = express();
 dotenv.config();
 const port = process.env.PORT || 5001;

@@ -1,3 +1,5 @@
+#!/usr/bin/node
+
 import mongoose from 'mongoose';
 import colors from 'colors';
 
@@ -6,7 +8,7 @@ const dbConnect = async () => {
         const conn = await mongoose.connect(process.env.MONGO_URI, {
             dbName: "ecommerce"
         })
-        console.log(`Mongo DB connected on ${conn.connection.host}.cyan`);
+        console.log(`Mongodb Database is connected on: ${conn.connection.host}`.underline.cyan);
     } catch (error) {
         console.log({errror: error.message});   
     }   
