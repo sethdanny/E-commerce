@@ -55,13 +55,13 @@ SECRET_KEY=your_secret_key
 
 ## Usage
 <p>To start the server, run:</p>
-npm run server
-The server will be running at http://localhost:5000 by default.
+* npm run server.
+* The server will be running at http://localhost:5000 by default.
 
 ## API Endpoints
 - **Authentication:**
-  - POST /api/auth/register
-  - POST /api/auth/login
+  - POST /api/v1/user/register
+  - POST /api/v1/user/login
 
 - **Product Management:**
   - GET /api/products
