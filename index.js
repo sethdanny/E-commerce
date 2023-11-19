@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import morgan from 'morgan';
 import dbConnect from './config/database.js';
 import authRouter from './routes/authRoutes.js';
+import { errorHandler, notFound } from './middlewares/errorHandler.js';
 
 const app = express();
 dotenv.config();
@@ -15,6 +16,9 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 app.use('/api/v1/', authRouter);
+
+app.use(notFound);
+app.use(errorHandler);
 
 app.listen(port, () => {
     console.log(`Server is listening on: http://localhost:${port}`);
