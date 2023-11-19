@@ -54,7 +54,7 @@ MONGODB_URI=mongodb://localhost:27017/e-commerce
 SECRET_KEY=your_secret_key
 
 ## Usage
-<p>To start the server, run:</p>
+To start the server, run:
 * npm run server.
 * The server will be running at http://localhost:5000 by default.
 
@@ -64,24 +64,24 @@ SECRET_KEY=your_secret_key
   - POST /api/v1/user/login
 
 - **Product Management:**
-  - GET /api/products
-  - GET /api/products/:id
-  - POST /api/products
-  - PUT /api/products/:id
-  - DELETE /api/products/:id
+  - GET /api/v1/products
+  - GET /api/v1/products/:id
+  - POST /api/v1/products
+  - PUT /api/v1/products/:id
+  - DELETE /api/v1/products/:id
 
 - **Order Processing:**
-  - GET /api/orders
-  - GET /api/orders/:id
-  - POST /api/orders
-  - PUT /api/orders/:id
-  - DELETE /api/orders/:id
+  - GET /api/v1/orders
+  - GET /api/v1/orders/:id
+  - POST /api/v1/orders
+  - PUT /api/v1/orders/:id
+  - DELETE /api/v1/orders/:id
 
 - **Cart Functionality:**
-  - GET /api/cart
-  - POST /api/cart
-  - PUT /api/cart/:id
-  - DELETE /api/cart/:id
+  - GET /api/v1/cart
+  - POST /api/v1/cart
+  - PUT /api/v1/cart/:id
+  - DELETE /api/v1/cart/:id
 
 ## Models
 - User

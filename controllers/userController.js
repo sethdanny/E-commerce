@@ -18,3 +18,18 @@ export const createUser = asyncHandler(
         }
     }
 );
+
+export const loginUser = asyncHandler(
+    async(req, res) => {
+        try {
+            const { email, password } = req.body;
+        const userExists = await User.findOne({email});
+        if(userExists && userExists.isPasswordMatched(password)) {
+            res.status(200).json(userExists);
+        } else {
+            throw new Error('Invalid Credentials');
+        }     
+        } catch (error) {
+            res.status(400).json({error: error.message});     
+        }    
+    });
