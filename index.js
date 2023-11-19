@@ -1,4 +1,4 @@
-#!/usr/bin/node 
+#!/usr/bin/node
 
 import express from 'express';
 import dotenv from 'dotenv';
@@ -15,11 +15,11 @@ dbConnect();
 app.use(morgan('dev'));
 app.use(express.json());
 
-app.use('/api/v1/', authRouter);
+app.use('/api/v1/user', authRouter);
 
 app.use(notFound);
 app.use(errorHandler);
 
 app.listen(port, () => {
-    console.log(`Server is listening on: http://localhost:${port}`);
-})
+  console.log(`Server is listening on: http://localhost:${port}`);
+});
