@@ -1,5 +1,6 @@
 #!/usr/bin/node
 
+import { generateToken } from '../config/jwtToken.js';
 import User from '../models/user.js';
 import asyncHandler from 'express-async-handler';
 
@@ -25,7 +26,13 @@ export const loginUser = asyncHandler(
             const { email, password } = req.body;
         const userExists = await User.findOne({email});
         if(userExists && await userExists.isPasswordMatched(password)) {
-            res.status(200).json(userExists);
+            res.status(200).json({
+                _id: userExists?._id,
+                firstName: userExists?.firstName,
+                lastName: userExists?.lastName,
+                email: userExists?.email,
+                token: generateToken(userExists?._id)
+            });
         } else {
             throw new Error('Invalid Credentials');
         }     
