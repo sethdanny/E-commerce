@@ -24,7 +24,7 @@ export const loginUser = asyncHandler(
         try {
             const { email, password } = req.body;
         const userExists = await User.findOne({email});
-        if(userExists && userExists.isPasswordMatched(password)) {
+        if(userExists && await userExists.isPasswordMatched(password)) {
             res.status(200).json(userExists);
         } else {
             throw new Error('Invalid Credentials');
