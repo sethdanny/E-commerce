@@ -12,6 +12,9 @@ export const authenticate = asyncHandler(
       try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const user = await User.findById(decoded?.id);
+        if (!user) {
+          throw new Error('user not Found');
+        }
         req.user = user;
         next();
       } catch (error) {
@@ -24,13 +27,13 @@ export const authenticate = asyncHandler(
 );
 
 export const isAdmin = asyncHandler(
-    async(req, res, next) => {
-        const {email} = req.user;
-        const adminUser = await User.findOne({email});
-        if (adminUser.role !== 'admin') {
-            throw new Error('You are not admin');
-        } else {
-            next();
-        }
+  async (req, res, next) => {
+    const { email } = req.user;
+    const adminUser = await User.findOne({ email });
+    if (adminUser.role !== 'admin') {
+      throw new Error('You are not admin');
+    } else {
+      next();
     }
+  }
 );

@@ -2,7 +2,6 @@
 
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
-import { ObjectId } from 'mongodb';
 
 const userSchema = new mongoose.Schema({
   firstName: {
@@ -31,15 +30,19 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: 'user'
   },
+  isBlocked: {
+    type: Boolean,
+    default: false
+  },
   cart: {
     type: Array,
     default: []
   },
   address: {
-    type: ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Address'
   },
-  wishlist: { type: ObjectId, ref: 'Product' }
+  wishlist: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' }
 }, { timestamps: true });
 
 userSchema.pre('save', async function (next) {
