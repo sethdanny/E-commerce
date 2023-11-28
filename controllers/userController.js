@@ -3,7 +3,9 @@
 import { generateToken } from '../config/jwtToken.js';
 import User from '../models/user.js';
 import asyncHandler from 'express-async-handler';
-import { validateMongoDBId } from '../utils/validateMongoDbId.js';
+import { validateMongoDBId } from '../utils/validateMongoDbId.js'
+import { generateRefreshToken } from '../config/refreshToken.js';
+
 
 export const createUser = asyncHandler(
   async (req, res) => {
@@ -27,6 +29,16 @@ export const loginUser = asyncHandler(
       const { email, password } = req.body;
       const userExists = await User.findOne({ email });
       if (userExists && await userExists.isPasswordMatched(password)) {
+        const refreshToken = await generateRefreshToken(userExists?.id);
+        const updateUser = await User.findByIdAndUpdate(
+          userExists.id, 
+          { refreshToken: refreshToken },
+          { new: true })
+        res.cookie("refreshToken", refreshToken,
+        {
+          httpOnly: true,
+          maxAge: 72*60*60*1000
+        });
         res.status(200).json({
           _id: userExists?._id,
           firstName: userExists?.firstName,
@@ -42,6 +54,16 @@ export const loginUser = asyncHandler(
     }
   });
 
+export const handleRefreshToken = asyncHandler(
+  async(req, res) => {
+    const cookie = req.cookies;
+    if(!cookie?.refreshToken) throw new Error('No refresh token in the cookies');
+    const refreshToken = cookie.refreshToken;
+    const user = await User.findOne({refreshToken});
+    res.status(200).json(user);
+  }
+);
+
 export const getAllUsers = asyncHandler(
   async (req, res) => {
     try {
@@ -54,7 +76,7 @@ export const getAllUsers = asyncHandler(
 
 export const getSingleUser = asyncHandler(
   async (req, res) => {
-    const { id } = req.params;
+    const { id } = req.params.id;
     validateMongoDBId(id);
     try {
       const singleUser = await User.findById(id);
