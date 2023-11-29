@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 import morgan from 'morgan';
 import dbConnect from './config/database.js';
 import authRouter from './routes/authRoutes.js';
-import productRouter from './routes/productRoutes.js'
+import productRouter from './routes/productRoutes.js';
 import { errorHandler, notFound } from './middlewares/errorHandler.js';
 import cookieParser from 'cookie-parser';
 
