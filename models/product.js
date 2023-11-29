@@ -28,12 +28,11 @@ const productSchema = new mongoose.Schema({
     },
     brand: {
         type: String,
-        unique: true,
         enum: ["Apple", "Samsung", "Lenovo"]
-
     },
     quantity: {
-        type: Number
+        type: Number,
+        required: true
     },
     sold: {
         type: Number,
